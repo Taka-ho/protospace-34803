@@ -36,18 +36,20 @@ class PrototypesController < ApplicationController
 
     def update
         if @prototype.update(prototype_params)
-            redirect_to action: :index
+            redirect_to prototype_path
         else
             render 'edit'
       end
     end
 
     def destroy
-            @prototype.destroy
+        if @prototype.destroy
             redirect_to root_path
+        
             unless user_signed_in?
-                redirect_to action: :index
-              end
+                redirect_to root_path
+            end    
+        end  
     end
     private
 
